@@ -1,15 +1,24 @@
 import 'babel-polyfill';
 import React from 'react';
-import ReactDom from 'react-dom';
-import {Provider} from 'react-redux';
-import {Router, browserHistory} from 'react-router';
+import ReactDOM from 'react-dom';
+import { Router, Route, Link, browserHistory, IndexRoute  } from 'react-router';
+import App from './App';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import fetchPosts from './reducers/post_reducers';
 
-import routes from './routes';
-//import store from './store';
+let store = createStore(fetchPosts);
 
-ReactDom.render(
-<Provider store={store}>
-    <Router history={browserHistory} routes={routes}/>
-    </Provider>,
-    document.getElementById('react-main')
-);
+import Home from './containers/home';
+
+ReactDOM.render((
+    <Provider store = {store}>
+        <Router history = {browserHistory}>
+            <Route path = "/" component = {App}>
+                <IndexRoute component = {Home} />
+                <Route path = "/" component = {Home} />
+            </Route>
+        </Router>
+    </Provider>
+
+), document.getElementById('react-main'));
