@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import superagent from 'superagent';
 
+import ArchivePost from './archivePost';
+
 var Home = React.createClass({
 
     getInitialState() {
@@ -38,9 +40,8 @@ var Home = React.createClass({
 
     render() {
         var posts = [];
-        console.log(this.state.posts);
         for(var i = 0; i < this.state.posts.length; i++) {
-            posts.push(<h4 key={i}>{this.state.posts[i].title.rendered} </h4>);
+            posts.push(<ArchivePost post={this.state.posts[i]} key={i}>{this.state.posts[i].title.rendered}</ArchivePost>);
         }
 
         return (
